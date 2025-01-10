@@ -5,8 +5,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { AMapSdk } from "react-native-amap3d";
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { Platform } from 'react-native';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -22,6 +24,14 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEffect(() => {
+    AMapSdk.init(
+      Platform.select({
+        android: "baa45d966827ef9b74599f920f133785",
+      })
+    );
+  }, [])
 
   if (!loaded) {
     return null;
